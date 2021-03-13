@@ -38,13 +38,15 @@ class _SplashScreenState extends State<SplashScreen> {
     getUserData();
     Timer(
         Duration(seconds: 4),
-            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => userLoged ? Home() : Login())));
+            () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => userLoged ? Home() : Login()));});
   }
   getUserData() async {
     await SharedPreferences.getInstance().then((value){
       print(value.getInt('userLogged'));
-       if (value.getInt('userLogged') ?? 0 == 1 ){
+      var userLogged = value.getInt('userLogged') ?? 0;
+       if (userLogged == 1 ){
          userLoged = true;
        }
       

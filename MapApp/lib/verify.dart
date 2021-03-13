@@ -229,13 +229,16 @@ class _VerifyState extends State<Verify> {
     FirebaseAuth.instance.signInWithCredential(authCred).then((authResult)async {
       Constant().hideProgress(context);
       await SharedPreferences.getInstance().then((value){
+        print("Here");
           value.setInt('userLogged', 1);
+          print(value.getInt('userLogged'));
           value.setString('userNumber', widget.countryCode.toString() + " " + widget.phone.toString());
-        });
-        Navigator.pushAndRemoveUntil(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => Home()),
             (Route<dynamic> route) => false);
+        });
+        
     }).catchError((error) {
       print(error.toString());
       Constant().hideProgress(context);
